@@ -16,12 +16,16 @@ export class SearchBar extends AnyComponent<SearchBar> {
     private crossButton: ElementFinder = $('button[class*="searchCloseButton"]');
 
     typeSearchRequest(text: string): SearchBar {
+        browser.logger.step(`Type search request ${text} in search field`)
+
         this.searchInputField.sendKeys(text);
 
         return this;
     }
 
     valueInSearchFieldShouldBeSameAs(text: string): SearchBar {
+        browser.logger.step(`Check that value in search field same as ${text}`)
+
         this.searchInputField.getAttribute('value')
             .then($value => expect($value).toEqual(text));
 
@@ -29,18 +33,24 @@ export class SearchBar extends AnyComponent<SearchBar> {
     }
 
     searchResultTooltipShouldBeVisible(): SearchBar {
+        browser.logger.step('Check visible tooltip with search results')
+
         expect(waitForElementVisible(this.searchResultTooltip)).toBeTrue;
         
         return this;
     }
 
     searchResultTooltipShouldNotBeVisible(): SearchBar {
+        browser.logger.step('Check don\'t visible tooltip with search results')
+
         expect(waitForElementNotVisible(this.searchResultTooltip)).toBeTrue;
         
         return this;
     }
 
     searchResultTooltipItemsShouldBeVisible(quantity: number): SearchBar {
+        browser.logger.step('Check visible search result items in tooltip')
+
         let condition = () => this.searchListItems
             .filter($item => $item.isDisplayed())
             .count().then($num => $num === quantity);
@@ -51,6 +61,8 @@ export class SearchBar extends AnyComponent<SearchBar> {
     }
 
     clickCrossButton(): SearchBar {
+        browser.logger.step('Click cross button in search field')
+
         browser.wait(ExpectedConditions.elementToBeClickable(this.crossButton));
         this.crossButton.click();
 
@@ -58,6 +70,8 @@ export class SearchBar extends AnyComponent<SearchBar> {
     }
 
     clickSearchItemByTitle(title: string): ProductPage {
+        browser.logger.step(`Click item ${title} in search result tooltip`)
+
         this.searchListItems.filter($item => $item.getText().then($title => $title === title))
             .click();
 

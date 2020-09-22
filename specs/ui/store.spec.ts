@@ -37,7 +37,7 @@ describe('UI E2E Automation tests for store page', () => {
         agewarningModal.clickContinueButton();
         agewarningModal.modalShouldNotBePresent();
 
-        new ProductEditions().clickRandomFavouriteButton(1)
+        new ProductEditions().clickFavouriteButtonByIndex(1)
             .pageShouldBeOpened()
             .authTypeShouldBePresent(AuthTypes.Apple);
     })

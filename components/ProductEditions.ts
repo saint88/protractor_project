@@ -10,7 +10,9 @@ export class ProductEditions extends AnyComponent<ProductEditions> {
 
     private favouriteButtons: ElementArrayFinder = this.get().$$('[data-component="WishButton"] button');
 
-    clickRandomFavouriteButton(index: number): LoginPage {
+    clickFavouriteButtonByIndex(index: number): LoginPage {
+        browser.logger.step(`Click favourite button ${index} in editions list`)
+
         const favouriteButton: ElementFinder = this.favouriteButtons.get(--index);
         browser.wait(ExpectedConditions.elementToBeClickable(favouriteButton));
 

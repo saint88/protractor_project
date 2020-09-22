@@ -1,6 +1,6 @@
 import { ProductPage } from '../../pages/ProductPage.po';
 import { AnyModal } from "./AnyModalAbstract";
-import { $ } from 'protractor';
+import { $, browser } from 'protractor';
 
 export class AgeWarningModal extends AnyModal<AgeWarningModal> {
 
@@ -9,6 +9,7 @@ export class AgeWarningModal extends AnyModal<AgeWarningModal> {
     }
 
     clickContinueButton(): ProductPage {
+        browser.logger.step("Click 'Continue' button")
         this.get().$('button[data-component="Button"]').click();
 
         return new ProductPage();

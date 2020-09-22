@@ -1,5 +1,5 @@
 import { waitForCondition, waitForElementVisible, waitForElementNotVisible } from '../../utils/waiter';
-import { ElementFinder, ExpectedConditions } from "protractor";
+import { ElementFinder, ExpectedConditions, browser } from "protractor";
 import { IModal } from "./IModal";
 
 export abstract class AnyModal<T> implements IModal<T> {
@@ -11,12 +11,14 @@ export abstract class AnyModal<T> implements IModal<T> {
     }
 
     modalShouldBePresent(): T {
+        browser.logger.step(`Modal should be visible`)
         expect(waitForElementVisible(this.component)).toBeTrue;
 
         return <unknown>this as T;
     }
 
     modalShouldNotBePresent(): T {
+        browser.logger.step(`Modal should not be visible`)
         expect(waitForElementNotVisible(this.component)).toBeTrue;
 
         return <unknown>this as T;
