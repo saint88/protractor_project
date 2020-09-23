@@ -14,6 +14,6 @@ describe('Post data in pastebin service via API', () => {
 
         logger.info(apodImage.hdurl);
 
-        await createNewPaste("test123", {api_paste_name: 'title123'});
+        await createNewPaste(apodImage.explanation, {api_paste_name: 'NASA Space Info'});
     })    
 })
