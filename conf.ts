@@ -9,7 +9,8 @@ export let config: Config = {
   capabilities: {
     browserName: 'chrome',
     shardTestFiles: true,
-    maxInstances: 1,
+    maxInstances: 10,
+    verboseMultiSessions: true
   },
   jasmineNodeOpts: {
     showColors: true,
@@ -19,23 +20,8 @@ export let config: Config = {
 
   noGlobals: true,
 
-  beforeLaunch: () => {
-    log4js.configure({
-      levels: {
-        STEP: { value: 600, colour: 'green' }
-      },
-      appenders: {
-        console: { type: 'console' }
-      },
-      categories: {
-        default: { appenders: ['console'], level: 'STEP' }
-      }
-    });
-},
-
   onPrepare: () => {
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: StacktraceOption.PRETTY } }));
-    browser.logger = log4js.getLogger();
     browser.waitForAngularEnabled(false);
     browser.driver.manage().window().setSize(1500, 1300);
   },
