@@ -8,7 +8,7 @@ const fetch = require("node-fetch");
 const DEV_KEY: string = 'rJMQnE5-W_vF8uvQxr-OlAgFDWaftBD3';
 const BASE_URL: string = 'https://pastebin.com';
 
-export const createNewPaste = async (text: string, options?: {}) => {
+export const createNewPaste = async (text: string, options?: {}): Promise<string> => {
     const params = {
         api_dev_key: DEV_KEY,
         api_paste_code: text,
@@ -24,9 +24,13 @@ export const createNewPaste = async (text: string, options?: {}) => {
             'Content-Type': 'application/x-www-form-urlencoded' 
         },
         body: body
-    })
+    });
+
+    expect(response.status).toBe(200);
 
     const bodyResponse = await response.text()
 
-    logger.info('Resp=' + bodyResponse);
+    expect(bodyResponse).toMatch(new RegExp('^https?://pastebin.com/.*?$'));
+
+    return bodyResponse;
 }
